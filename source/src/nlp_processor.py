@@ -32,9 +32,9 @@ def process_keywords(command):
         for synonym in synonyms:
             if synonym.lower() in command.lower():  
                 print(f"Matched intent: {intent} with synonym: {synonym}")  # Debugging print
-                return intent, []
+                return intent, command.lower().replace(synonym.lower(), '').strip()  # Pass the command's parameters
     
-    return "unknown", []
+    return "unknown", command
 
 # Function for GPT-based command processing
 def process_gpt(command):
