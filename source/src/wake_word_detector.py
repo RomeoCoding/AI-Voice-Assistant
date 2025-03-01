@@ -14,7 +14,7 @@ def wake_word_listener(callback):
 
         # Start the audio stream with the correct frame length
         pa = pyaudio.PyAudio()
-        frame_length = int(porcupine.frame_length / 2)  # Ensure it's an integer
+        frame_length = int(porcupine.frame_length // 2)  # Use frame_length // 2 as per your working configuration
 
         print(f"Porcupine frame length: {porcupine.frame_length}")
         
