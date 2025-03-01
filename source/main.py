@@ -5,7 +5,7 @@ from src.command_executor import execute_command
 from src.tts import speak
 
 def start_assistant():
-    speak("Hello! I am your AI Assistant. How can I help you?")
+    speak("Fuck off. How can I help you?")
 
     while True:
         # Wait for the user to speak a command
@@ -21,7 +21,8 @@ def start_assistant():
                 break  # Exit the assistant
             
             if intent == "gpt_response":
-                speak(params)  # Speak the response from GPT
+                # Speak the response from GPT
+                speak(f"GPT says: {params}")  # This speaks out the response from GPT
             else:
                 execute_command(intent, params)  # Execute predefined commands
         else:
@@ -30,4 +31,4 @@ def start_assistant():
 if __name__ == "__main__":
     # Start the assistant only after detecting the wake word
     print("Assistant is listening for the wake word...")
-    wake_word_listener(start_assistant)  # Calls start_assistant() after detecting the wake word
+    wake_word_listener(start_assistant)  # Calls start_assistant() after detecting "hey assistant"
