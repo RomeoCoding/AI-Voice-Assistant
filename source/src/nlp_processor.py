@@ -1,5 +1,12 @@
 import openai
-from config import open_ai_key, NLP_MODE, COMMANDS
+import os
+import sys
+
+# Add the parent directory (source) to sys.path so we can import config.py
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+# Now you can import from config
+from config import openai_api_key, NLP_MODE, COMMANDS
 
 # Function to handle processing commands
 def process_command(command):
