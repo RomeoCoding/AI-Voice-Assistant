@@ -1,17 +1,19 @@
 import pvporcupine
 import pyaudio
 import sys
-sys.path.append("C:/Users/matro/AI-Voice-Assistant/source")  # Add the path to your config.py directory
-import config
 import os
+
+
 def wake_word_listener(callback):
     try:
-        # Set the correct wake word from config, like "picovoice" or any valid one
+        # Get the access key from environment variable (or set it here if needed)
         access_key = "EdLqrYoN0zYuUFMpKuq3oKxgABeqBLCQjOPxpUV9Iea/NHN1prlN9g=="
+        # Set the correct wake word to "porcupine" or "bumblebee"
         porcupine = pvporcupine.create(
-            keyword_paths=[pvporcupine.KEYWORD_PATHS[config.WAKE_WORD]],
-            access_key=access_key  # Pass the access key here
+            access_key=access_key,  # Pass in your access key here
+            keywords=["porcupine", "bumblebee"]  # List the built-in wake words you want to use
         )
+
         # Start audio stream
         pa = pyaudio.PyAudio()
         stream = pa.open(rate=porcupine.sample_rate,
@@ -23,11 +25,19 @@ def wake_word_listener(callback):
         print("Listening for wake word...")
 
         while True:
-            pcm = stream.read(porcupine.frame_length)
-            if porcupine.process(pcm) >= 0:
-                print("Wake word detected!")
+            pcm = stream.read(porcupine.frame_length)  # Read the audio frame
+            keyword_index = porcupine.process(pcm)  # Process the audio frame
+
+            if keyword_index >= 0:  # If a keyword is detected
+                if keyword_index == 0:
+                    print("Wake word 'porcupine' detected!")
+                elif keyword_index == 1:
+                    print("Wake word 'bumblebee' detected!")
+                
                 callback()  # Call the assistant after detecting the wake word
                 break  # Exit the loop to start the assistant
 
     except Exception as e:
         print(f"Error in wake word detection: {e}")
+    finally:
+        porcupine.delete()  # Release Porcupine resources after use
