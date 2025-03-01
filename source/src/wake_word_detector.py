@@ -1,30 +1,28 @@
 import pvporcupine
 import pyaudio
-import struct
 import config
 
 def wake_word_listener(callback):
-    porcupine = pvporcupine.create(keyword_paths=[pvporcupine.KEYWORD_PATHS[config.WAKE_WORD]])
-    pa = pyaudio.PyAudio()
-    
-    stream = pa.open(
-        format=pyaudio.paInt16,
-        channels=1,
-        rate=porcupine.sample_rate,
-        input=True,
-        frames_per_buffer=porcupine.frame_length
-    )
+    try:
+        # Set the correct wake word from config, like "picovoice" or any valid one
+        porcupine = pvporcupine.create(keyword_paths=[pvporcupine.KEYWORD_PATHS[config.WAKE_WORD]])
 
-    print("Listening for wake word...")
+        # Start audio stream
+        pa = pyaudio.PyAudio()
+        stream = pa.open(rate=porcupine.sample_rate,
+                         channels=1,
+                         format=pyaudio.paInt16,
+                         input=True,
+                         frames_per_buffer=porcupine.frame_length)
 
-    while True:
-        pcm = stream.read(porcupine.frame_length)
-        pcm = struct.unpack_from("h" * porcupine.frame_length, pcm)
+        print("Listening for wake word...")
 
-        if porcupine.process(pcm) >= 0:
-            print("Wake word detected!")
-            callback()  # Calls the main assistant function
+        while True:
+            pcm = stream.read(porcupine.frame_length)
+            if porcupine.process(pcm) >= 0:
+                print("Wake word detected!")
+                callback()  # Call the assistant after detecting the wake word
+                break  # Exit the loop to start the assistant
 
-    stream.close()
-    pa.terminate()
-    porcupine.delete()
+    except Exception as e:
+        print(f"Error in wake word detection: {e}")
