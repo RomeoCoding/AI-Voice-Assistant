@@ -14,7 +14,7 @@ def wake_word_listener(callback):
 
         # Start the audio stream with the correct frame length
         pa = pyaudio.PyAudio()
-        
+
         # Convert the frame length to an integer
         frame_length = int(porcupine.frame_length / 2)  # Ensure it's an integer
 
@@ -29,6 +29,12 @@ def wake_word_listener(callback):
         while True:
             # Read the next audio frame
             pcm = stream.read(frame_length)  # Ensure it's an integer
+
+            # Check if pcm is not empty and contains audio data
+            if pcm:
+                print(f"Received audio frame of length: {len(pcm)}")
+            else:
+                print("No audio received in frame.")
 
             # Process the audio frame with Porcupine
             keyword_index = porcupine.process(pcm)
