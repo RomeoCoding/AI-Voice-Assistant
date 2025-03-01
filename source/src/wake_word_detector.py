@@ -27,7 +27,7 @@ def wake_word_listener(callback):
         print("Listening for wake word...")
 
         while True:
-            pcm = stream.read(frame_length*2)
+            pcm = stream.read(frame_length)
             keyword_index = porcupine.process(pcm)
 
             if keyword_index >= 0:  # Check if any keyword was detected
