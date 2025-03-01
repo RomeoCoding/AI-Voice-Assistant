@@ -2,7 +2,7 @@
 import openai
 import os
 
-WAKE_WORD = "Porcupine"  # Or any other valid keyword from the predefined set
+WAKE_WORD = "porcupine"  # Or any other valid keyword from the predefined set
 
 SPEECH_RECOGNIZER = "google"  
 SPEECH_TIMEOUT = 5  # Max seconds to wait for input
