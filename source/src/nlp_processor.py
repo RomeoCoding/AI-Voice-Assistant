@@ -22,17 +22,24 @@ def process_command(command):
 
 # Function for keyword-based command processing
 def process_keywords(command):
-    # Check if the command looks like a question (heuristic: contains a "?")
-    if '?' in command:
-        print("Processing command with GPT...")
-        return "gpt_response", command  # Return the command to be processed by GPT
+    # List of common question words
+    question_words = ["what", "how", "why", "where", "who", "when"]
+    
+    # Convert command to lowercase to handle case insensitivity
+    command_lower = command.lower()
+
+    # Check if the command starts with any of the question words
+    if any(command_lower.startswith(word) for word in question_words):
+        print("Processing command with GPT...")  # Debugging print
+        return "gpt_response", command  # Return the full command to be processed by GPT
 
     # If not a question, check for predefined commands
     for intent, synonyms in COMMANDS.items():
         for synonym in synonyms:
-            if synonym.lower() in command.lower():  
+            if synonym.lower() in command_lower:  
                 print(f"Matched intent: {intent} with synonym: {synonym}")  # Debugging print
-                return intent, command.lower().replace(synonym.lower(), '').strip()  # Pass the command's parameters
+                # Return the intent and parameters (after removing the matched synonym)
+                return intent, command_lower.replace(synonym.lower(), '').strip()  
     
     return "unknown", command
 
