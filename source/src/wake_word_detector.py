@@ -1,9 +1,12 @@
 import pvporcupine
 import pyaudio
+import sys
+sys.path.append("C:/Users/matro/AI-Voice-Assistant/source")  # Add the path to your config.py directory
 import config
 import os
 def wake_word_listener(callback):
     try:
+        print(os.getenv("PICOVOICE_ACCESS_KEY"))
         # Set the correct wake word from config, like "picovoice" or any valid one
         access_key = os.getenv("PICOVOICE_ACCESS_KEY")
         porcupine = pvporcupine.create(
