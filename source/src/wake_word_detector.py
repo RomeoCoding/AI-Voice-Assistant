@@ -1,11 +1,10 @@
 import pvporcupine
 import pyaudio
-import sys
-import os
 
 
 def wake_word_listener(callback):
     try:
+        frame_length = 512
         # Get the access key from environment variable (or set it here if needed)
         access_key = "EdLqrYoN0zYuUFMpKuq3oKxgABeqBLCQjOPxpUV9Iea/NHN1prlN9g=="
         # Set the correct wake word to "porcupine" or "bumblebee"
@@ -20,7 +19,8 @@ def wake_word_listener(callback):
                          channels=1,
                          format=pyaudio.paInt16,
                          input=True,
-                         frames_per_buffer=porcupine.frame_length)
+                         frames_per_buffer=frame_length
+                        )
 
         print("Listening for wake word...")
 
