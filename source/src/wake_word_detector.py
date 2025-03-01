@@ -1,23 +1,23 @@
 import pvporcupine
 import pyaudio
+import sys
+sys.path.append("C:/Users/matro/AI-Voice-Assistant/source")  # Add the path to your config.py directory
+import config
 
 def wake_word_listener(callback):
     try:
-        # Set the access key (Make sure to replace this with your actual key)
+        # Make sure config.WAKE_WORD has a valid wake word like 'porcupine'
         access_key = "EdLqrYoN0zYuUFMpKuq3oKxgABeqBLCQjOPxpUV9Iea/NHN1prlN9g=="
         
-        # Create the Porcupine instance using only one keyword for simplicity
+        # Use the correct wake word from config
         porcupine = pvporcupine.create(
             access_key=access_key,
-            keywords=["porcupine"]  # Test with just one keyword
+            keywords=[config.WAKE_WORD]  # Ensure this matches a valid keyword like "porcupine" or "bumblebee"
         )
 
-        # Start the audio stream with the correct frame length
+        # Start audio stream
         pa = pyaudio.PyAudio()
-        frame_length = int(porcupine.frame_length // 2)  # Use frame_length // 2 as per your working configuration
-
-        print(f"Porcupine frame length: {porcupine.frame_length}")
-        
+        frame_length = int(porcupine.frame_length / 2)
         stream = pa.open(rate=porcupine.sample_rate,
                          channels=1,
                          format=pyaudio.paInt16,
@@ -27,26 +27,15 @@ def wake_word_listener(callback):
         print("Listening for wake word...")
 
         while True:
-            # Read the next audio frame
             pcm = stream.read(frame_length)
-
-            # Log the PCM length (make sure the stream is providing audio)
-            print(f"Received audio frame of length: {len(pcm)}")
-
-            # Process the audio frame with Porcupine
             keyword_index = porcupine.process(pcm)
 
-            # Log the result of porcupine.process()
-            print(f"Porcupine result: {keyword_index}")
-
-            if keyword_index >= 0:  # If a keyword is detected
-                if keyword_index == 0:
-                    print("Wake word 'porcupine' detected!")
-
+            if keyword_index >= 0:  # Check if any keyword was detected
+                print("Wake word detected!")
                 callback()  # Call the assistant after detecting the wake word
                 break  # Exit the loop to start the assistant
 
     except Exception as e:
         print(f"Error in wake word detection: {e}")
     finally:
-        porcupine.delete()  # Release Porcupine resources after use
+        porcupine.delete()  # Explicitly release resources after use
