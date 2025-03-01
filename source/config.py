@@ -18,8 +18,6 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 print(openai.api_key)
 APP_PATHS = {
     "chrome": "C:\Program Files\Google\Chrome\Application\chrome.exe",
-    "notepad": "C:\\Windows\\system32\\notepad.exe",
-    "calculator": "C:\\Windows\\System32\\calc.exe"
 }
 
 DEBUG = True
