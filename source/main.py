@@ -30,4 +30,4 @@ def start_assistant():
 if __name__ == "__main__":
     # Start the assistant only after detecting the wake word
     print("Assistant is listening for the wake word...")
-    wake_word_listener(start_assistant)  # Calls start_assistant() after detecting "hey assistant"
+    wake_word_listener(start_assistant)  # Calls start_assistant() after detecting the wake word

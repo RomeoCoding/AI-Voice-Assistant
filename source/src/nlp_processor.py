@@ -10,6 +10,7 @@ from config import openai_api_key, NLP_MODE, COMMANDS
 
 # Function to handle processing commands
 def process_command(command):
+    print(f"Processing command: {command}")  # Debug output
     if NLP_MODE == "keywords":
         return process_keywords(command)
     elif NLP_MODE == "openai":
@@ -19,10 +20,15 @@ def process_command(command):
 
 # Function for keyword-based command processing
 def process_keywords(command):
+    print(f"Keywords being checked for: {command}")  # Debug output
     for intent, synonyms in COMMANDS.items():
         for synonym in synonyms:
             if synonym in command.lower():
-                return intent, []
+                print(f"Matched intent: {intent} with synonym: {synonym}")  # Debug output
+                # Extract the parameters after the synonym
+                params = command.lower().replace(synonym, '').strip()
+                print(f"Extracted params: {params}")  # Debug output
+                return intent, params
     return "unknown", []
 
 # Function for GPT-based command processing
