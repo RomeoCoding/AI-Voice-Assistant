@@ -6,9 +6,8 @@ import config
 import os
 def wake_word_listener(callback):
     try:
-        print(os.getenv("PICOVOICE_ACCESS_KEY"))
         # Set the correct wake word from config, like "picovoice" or any valid one
-        access_key = os.getenv("PICOVOICE_ACCESS_KEY")
+        access_key = "EdLqrYoN0zYuUFMpKuq3oKxgABeqBLCQjOPxpUV9Iea/NHN1prlN9g=="
         porcupine = pvporcupine.create(
             keyword_paths=[pvporcupine.KEYWORD_PATHS[config.WAKE_WORD]],
             access_key=access_key  # Pass the access key here
