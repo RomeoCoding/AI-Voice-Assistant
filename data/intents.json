@@ -1,0 +1,7 @@
+{
+    "open_website": ["open", "go to"],
+    "search_google": ["search for", "google"],
+    "open_app": ["launch", "start"],
+    "type_text": ["type", "write"],
+    "exit": ["exit", "quit", "stop"]
+}

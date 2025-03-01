@@ -1,0 +1,10 @@
+pvporcupine
+pyaudio
+speechrecognition
+pyttsx3
+webbrowser
+pyautogui
+flask
+fastapi
+openai
+requests
