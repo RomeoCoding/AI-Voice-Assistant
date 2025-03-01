@@ -1,5 +1,5 @@
 import openai
-from config import OPENAI_API_KEY, NLP_MODE, COMMANDS
+from config import open_ai_key, NLP_MODE, COMMANDS
 
 # Function to handle processing commands
 def process_command(command):
