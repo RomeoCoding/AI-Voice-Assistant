@@ -1,5 +1,5 @@
 from src.wake_word_detector import wake_word_listener
-from src.speech_recognition import recognize_speech
+from src.my_speech_recognition import recognize_speech
 from src.nlp_processor import process_command
 from src.command_executor import execute_command
 from src.tts import speak
