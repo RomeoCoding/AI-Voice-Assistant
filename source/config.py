@@ -13,12 +13,6 @@ TTS_VOICE = 1
 
 DEFAULT_BROWSER = "chrome"  
 
-# OpenAI API configuration
-openai.api_key = os.getenv("OPENAI_API_KEY")
-openai_api_key=openai.api_key
-APP_PATHS = {
-    "chrome": "C:\Program Files\Google\Chrome\Application\chrome.exe",
-}
 
 DEBUG = True
 
@@ -30,3 +24,4 @@ COMMANDS = {
     "open_notepad": ["open notepad", "start notepad"],
     "exit": ["exit", "goodbye"]
 }
+
